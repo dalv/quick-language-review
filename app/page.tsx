@@ -1,10 +1,10 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Card from "./components/Card"
-import ThemeToggle from "./components/ThemeToggle"
-import Selector from "./components/Selector"
-import SettingsModal from "./components/SettingsModal"
+import Card from "../components/Card"
+import ThemeToggle from "../components/ThemeToggle"
+import Selector from "../components/Selector"
+import SettingsModal from "../components/SettingsModal"
 import { Settings } from "lucide-react"
 
 const languages = [
