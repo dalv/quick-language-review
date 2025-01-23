@@ -32,14 +32,12 @@ export default function Home() {
       !target.closest('[role="menuitem"]') &&
       !target.closest(".settings-button")
     ) {
-      setIsFlipped((prev) => {
-        if (prev) {
-          // When flipping from back to front, move to the next random card
-          setCurrentCardIndex(Math.floor(Math.random() * cards.length))
-        }
-        return !prev
-      })
+      setIsFlipped((prev) => !prev)
     }
+  }
+
+  const handleFlipComplete = () => {
+    setCurrentCardIndex(Math.floor(Math.random() * cards.length))
   }
 
   const handleSettingsSubmit = (input: string) => {
@@ -55,13 +53,7 @@ export default function Home() {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.code === "Space") {
-        setIsFlipped((prev) => {
-          if (prev) {
-            // When flipping from back to front, move to the next random card
-            setCurrentCardIndex(Math.floor(Math.random() * cards.length))
-          }
-          return !prev
-        })
+        setIsFlipped((prev) => !prev)
       }
     }
 
@@ -69,7 +61,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
     }
-  }, [cards])
+  }, [])
 
   return (
     <main
@@ -94,6 +86,7 @@ export default function Home() {
         language={language}
         frontText={cards[currentCardIndex]?.front || "Add cards in settings"}
         backText={cards[currentCardIndex]?.back || "Add cards in settings"}
+        onFlipComplete={handleFlipComplete}
       />
       <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} onSubmit={handleSettingsSubmit} />
     </main>
